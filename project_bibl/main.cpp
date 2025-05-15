@@ -1,7 +1,7 @@
-﻿#include <iostream>
+﻿#include "class.h"
+#include <iostream>
 
-int main()
-{
-    std::cout << "Hello World\n";
-    std::cout << "Darya love\n";
+int main() {
+	
+	return 0;
 }
