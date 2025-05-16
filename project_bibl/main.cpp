@@ -3,8 +3,17 @@
 #include <string>
 #include <windows.h> // для system("cls")
 
-bool check_email(std::string Email, std::string Surname, std::string Name, std::string Middlename, int Age) {
-	
+//проверка корректности почты(заканчивается на @gmail.com, @yandex.ru, @mail.ru), что почты нет в файле с аккаунтами
+//проверка корректности фамилии, ими, отчества(чтоб были только буквы)
+//проверка корректности возраста(только цифры + в размере разумного)
+bool check_reg(std::string email, std::string surname, std::string name, std::string middlename, std::string age) {
+	//проверка, что почта больше 10 символов, а также конец совпадает с типом почты
+	if (!((email.size() > 10) 
+		and (email.substr(email.size() - 10) == "@gmail.com" 
+			or email.substr(email.size() - 10) == "@yandex.ru"
+			or email.substr(email.size() - 8) == "@mail.ru"))) {
+		return false;
+	}
 }
 
 int main() {
@@ -22,7 +31,7 @@ int main() {
 		std::string Surname = "";
 		std::string Name = "";
 		std::string Middlename = "";
-		int Age = 0;
+		std::string Age = "";
 		std::string password = "";
  
 		std::cout << "Зарегистрироваться (up) / Войти (in) / Выйти (exit)" << std::endl << "Напиши слово из скобкок: ";
@@ -58,11 +67,11 @@ int main() {
 			std::cout << "Возраст: ";
 			std::cin >> Age;
 
-			if (check_email(Email, Surname, Name, Middlename, Age)) {
-
+			if (check_reg(Email, Surname, Name, Middlename, Age)) {
+				
 			}
 			else {
-
+				
 			}
 
 			//////////////////////////////
@@ -79,14 +88,14 @@ int main() {
 			std::cout << str1 << std::endl << str2 << std::endl;
 			break;
 		case (3):
-			std::cout << "Завершение работы. Будем у Вас в кормане, если что:)";
+			std::cout << "Завершение работы. Будем у Вас в кормане, если что:)" << std::endl;
 
 			//////////////////////////////
 			break;
 		default:
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
-			std::cout << std::endl << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl 
+			std::cout << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl 
 				<< "--------------------------------------------------------------------" << std::endl;
 			break;
 		}

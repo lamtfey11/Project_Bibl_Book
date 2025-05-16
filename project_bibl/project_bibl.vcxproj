@@ -132,6 +132,9 @@
   <ItemGroup>
     <ClInclude Include="class.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Akkaunt_email.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
