@@ -3,6 +3,10 @@
 #include <string>
 #include <windows.h> // для system("cls")
 
+bool check_email(std::string Email, std::string Surname, std::string Name, std::string Middlename, int Age) {
+	
+}
+
 int main() {
 	setlocale(LC_ALL, "rus");
 
@@ -14,16 +18,23 @@ int main() {
 	std::cout << str1 << std::endl << str2 << std::endl;
 	
 	do {
-		std::cout << "Войти (in) / Зарегистрироваться (up) / Выйти (exit)" << std::endl << "Напиши слово из скобкок: ";
+		std::string Email = "";
+		std::string Surname = "";
+		std::string Name = "";
+		std::string Middlename = "";
+		int Age = 0;
+		std::string password = "";
+ 
+		std::cout << "Зарегистрироваться (up) / Войти (in) / Выйти (exit)" << std::endl << "Напиши слово из скобкок: ";
 		std::cin >> Key;
 
 		system("cls"); // очищает экран консоли на Windows
 		std::cout << str1 << std::endl << str2 << std::endl;
 
-		if (Key == "in") {
+		if (Key == "up") {
 			key = 1;
 		}
-		else if (Key == "up") {
+		else if (Key == "in") {
 			key = 2;
 		}
 		else if (Key == "exit") {
@@ -33,7 +44,26 @@ int main() {
 		switch (key)
 		{
 		case (1):
-			std::cout << "Наш верный посититель! С возращением!" << std::endl;
+
+			std::cout << "Станьте членом нашей семьи! Заполните форму." << std::endl 
+				<< "---------------------------" << std::endl;
+			std::cout << "Почта: ";
+			std::cin >> Email;
+			std::cout << "Фамилия: ";
+			std::cin >> Surname;
+			std::cout << "Имя: ";
+			std::cin >> Name;
+			std::cout << "Отчество: ";
+			std::cin >> Middlename;
+			std::cout << "Возраст: ";
+			std::cin >> Age;
+
+			if (check_email(Email, Surname, Name, Middlename, Age)) {
+
+			}
+			else {
+
+			}
 
 			//////////////////////////////
 
@@ -41,7 +71,7 @@ int main() {
 			std::cout << str1 << std::endl << str2 << std::endl;
 			break;
 		case (2):
-			std::cout << "Станьте членом нашей семьи!" << std::endl;
+			std::cout << "Наш верный посититель! С возращением!" << std::endl;
 
 			//////////////////////////////
 
@@ -56,7 +86,8 @@ int main() {
 		default:
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
-			std::cout << std::endl << "-!Неверная команда. Просим Вас написать нужную Вам для работы команду!-" << std::endl << std::endl;
+			std::cout << std::endl << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl 
+				<< "--------------------------------------------------------------------" << std::endl;
 			break;
 		}
 	} while (Key != "exit");
