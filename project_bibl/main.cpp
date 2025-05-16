@@ -4,7 +4,7 @@
 #include <windows.h> // для system("cls")
 
 int main() {
-	setlocale(LC_ALL, "rus");//
+	setlocale(LC_ALL, "rus");
 
 	std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
 	std::string str2 = "______________________________________________________";
