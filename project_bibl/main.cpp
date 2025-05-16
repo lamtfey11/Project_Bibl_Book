@@ -14,16 +14,13 @@ int main() {
 	std::cout << str1 << std::endl << str2 << std::endl;
 	
 	do {
-		std::cout << "Войти, как гость (hin) / Войти (in) / Зарегистрироваться (up) / Выйти (exit)" << std::endl << "Напиши слово из скобкок: ";
+		std::cout << "Войти (in) / Зарегистрироваться (up) / Выйти (exit)" << std::endl << "Напиши слово из скобкок: ";
 		std::cin >> Key;
 
 		system("cls"); // очищает экран консоли на Windows
 		std::cout << str1 << std::endl << str2 << std::endl;
 
-		if (Key == "hin") {
-			key = 0;
-		}
-		else if (Key == "in") {
+		if (Key == "in") {
 			key = 1;
 		}
 		else if (Key == "up") {
@@ -35,14 +32,6 @@ int main() {
 
 		switch (key)
 		{
-		case (0):
-			std::cout << "Вы гость нашей библиотеки! Добро пожаловать!" << std::endl;
-
-			//////////////////////////////
-
-			system("cls"); // очищает экран консоли на Windows
-			std::cout << str1 << std::endl << str2 << std::endl;
-			break;
 		case (1):
 			std::cout << "Наш верный посититель! С возращением!" << std::endl;
 
@@ -60,14 +49,14 @@ int main() {
 			std::cout << str1 << std::endl << str2 << std::endl;
 			break;
 		case (3):
-			std::cout << "Завершение работы. Будем у Вас в кормане, если что)";
+			std::cout << "Завершение работы. Будем у Вас в кормане, если что:)";
 
 			//////////////////////////////
 			break;
 		default:
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
-			std::cout << "Неверная команда. Просим Вас написать нужную Вам для работы команду." << std::endl;
+			std::cout << std::endl << "-!Неверная команда. Просим Вас написать нужную Вам для работы команду!-" << std::endl << std::endl;
 			break;
 		}
 	} while (Key != "exit");
