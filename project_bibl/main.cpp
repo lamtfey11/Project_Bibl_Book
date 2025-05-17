@@ -5,6 +5,7 @@
 #include <windows.h> // для system("cls")
 //using namespace std;
 
+//проверка, что почты нет в реестре(в файле)
 bool check_email_file(std::string email) {
 	std::string email_file = "";//в эту строку сохраняется строка
 	std::string email_file_not_space = "";//сохраняется почта до пробела в строке
@@ -52,21 +53,29 @@ bool check_reg(std::string email, std::string surname, std::string name, std::st
 		and (email.substr(email.size() - 10) == "@gmail.com" 
 			or email.substr(email.size() - 10) == "@yandex.ru"
 			or email.substr(email.size() - 8) == "@mail.ru"))) {
+		std::cout << "Ошибка! Неправильно набрана почта! Попробуйте снова!" << std::endl
+			      << "----------------------------------------------------" << std::endl;
 		return false;
 	}
 
 	//проверка почты в файле
 	if (!(check_email_file(email))) {
+		std::cout << "Ошибка! Такая почта уже существует! Попробуйте снова!" << std::endl
+				  << "-----------------------------------------------------" << std::endl;
 		return false;
 	}
 
 	//проверка фамилии(первая буква большая, остальные строчные, и что вообще это именно буквы)
 	for (int i = 0; i < surname.size(); ++i) {
 		if (!(surname[0] >= 65 and surname[0] <= 90)) {
+			std::cout << "Ошибка! Имя с не заглавной буквы! Попробуйте снова!" << std::endl
+				      << "---------------------------------------------------" << std::endl;
 			return false;
 		}
 		else if ((surname[0] >= 65 and surname[0] <= 90) and i > 0){
 			if (!(surname[i] >= 97 and surname[i] <= 122)) {
+				std::cout << "Ошибка! Такого имени быть не может! Попробуйте снова!" << std::endl
+					      << "-----------------------------------------------------" << std::endl;
 				return false;
 			}
 		}
@@ -75,10 +84,14 @@ bool check_reg(std::string email, std::string surname, std::string name, std::st
 	//проверка имени(первая буква большая, остальные строчные, и что вообще это именно буквы)
 	for (int i = 0; i < name.size(); ++i) {
 		if (!(name[0] >= 65 and name[0] <= 90)) {
+			std::cout << "Ошибка! Фамилия с не заглавной буквы! Попробуйте снова!" << std::endl
+				      << "-------------------------------------------------------" << std::endl;
 			return false;
 		}
 		else if ((name[0] >= 65 and name[0] <= 90) and i > 0) {
 			if (!(name[i] >= 97 and name[i] <= 122)) {
+				std::cout << "Ошибка! Такой фамилии быть не может! Попробуйте снова!" << std::endl
+					      << "------------------------------------------------------" << std::endl;
 				return false;
 			}
 		}
@@ -87,10 +100,14 @@ bool check_reg(std::string email, std::string surname, std::string name, std::st
 	//проверка отчества(первая буква большая, остальные строчные, и что вообще это именно буквы)
 	for (int i = 0; i < middlename.size(); ++i) {
 		if (!(middlename[0] >= 65 and middlename[0] <= 90)) {
+			std::cout << "Ошибка! Отчество с не заглавной буквы! Попробуйте снова!" << std::endl
+				      << "--------------------------------------------------------" << std::endl;
 			return false;
 		}
 		else if ((middlename[0] >= 65 and middlename[0] <= 90) and i > 0) {
 			if (!(middlename[i] >= 97 and middlename[i] <= 122)) {
+				std::cout << "Ошибка! Такого отчества быть не может! Попробуйте снова!" << std::endl
+					      << "--------------------------------------------------------" << std::endl;
 				return false;
 			}
 		}
@@ -100,15 +117,21 @@ bool check_reg(std::string email, std::string surname, std::string name, std::st
 	if (age.size() > 1 and age.size() < 3 and age[0] != 0) {
 		for (int i = 0; i < age.size(); ++i) {
 			if (!(age[i] > 47 and age[i] < 58)) {
+				std::cout << "Ошибка! Некорректный возраст! Попробуйте снова!" << std::endl
+					      << "-----------------------------------------------" << std::endl;
 				return false;
 			}
 		}
 		if (std::stoi(age) < 14) {
+			std::cout << "Ошибка! Вам меньше 14-ти лет! Попробуйте снова!" << std::endl
+				      << "-----------------------------------------------" << std::endl;
 			return false;
 		}
 	}
 	else {
 		return false;
+		std::cout << "Ошибка! Некорректный возраст! Попробуйте снова!" << std::endl
+			      << "-----------------------------------------------" << std::endl;
 	}
 
 	return true;
@@ -153,32 +176,26 @@ int main() {
 		case (1):
 
 			std::cout << "Станьте членом нашей семьи! Заполните форму." << std::endl 
-				<< "----------------------------------------" << std::endl;
+				      << "--------------------------------------------" << std::endl;
 			std::cin.ignore();
-			std::cout << "Почта: ";
+			std::cout << "Почта (mail.ru, gmail.com, yandex.ru): ";
 			std::getline(std::cin, Email);
-			std::cout << "Фамилия: ";
+			std::cout << "Фамилия (С больщой буквы без пробелов): ";
 			std::getline(std::cin, Surname);
-			std::cout << "Имя: ";
+			std::cout << "Имя (С больщой буквы без пробелов): ";
 			std::getline(std::cin, Name);
-			std::cout << "Отчество: ";
+			std::cout << "Отчество (С больщой буквы без пробелов): ";
 			std::getline(std::cin, Middlename);
-			std::cout << "Возраст: ";
+			std::cout << "Возраст (от 14 до 99 лет): ";
 			std::getline(std::cin, Age);
-
-			if (check_reg(Email, Surname, Name, Middlename, Age)) {
-				std::cout << "true";
-				std::cin >> key;
-			}
-			else {
-				std::cout << "false";
-				std::cin >> key;
-			}
-
-			//////////////////////////////
 
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
+
+			if (check_reg(Email, Surname, Name, Middlename, Age)) {
+				
+			}
+			
 			break;
 		case (2):
 			std::cout << "Наш верный посититель! С возращением!" << std::endl;
@@ -197,7 +214,7 @@ int main() {
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
 			std::cout << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl 
-				<< "--------------------------------------------------------------------" << std::endl;
+				      << "--------------------------------------------------------------------" << std::endl;
 			break;
 		}
 	} while (Key != "exit");
