@@ -1,7 +1,47 @@
 ﻿#include "class.h"
 #include <iostream>
 #include <string>
+#include <fstream>//для работы с файлами
 #include <windows.h> // для system("cls")
+//using namespace std;
+
+bool check_email_file(std::string email) {
+	std::string email_file = "";//в эту строку сохраняется строка
+	std::string email_file_not_space = "";//сохраняется почта до пробела в строке
+	int size = 0;//длина стркои email_file
+	bool flag = true;//для того, чтобы считать именно почту в строке(до пробела)
+	std::ifstream file("Akkaunt_email.txt"); // открыли файл для чтения, создали объект
+	if (!file.is_open() or file.peek() == EOF) {//проверка, что файл пуст
+		return true;
+	}
+	//else if (!file.is_open()) {//проверка, что файл не открылся
+	//
+	//}
+	else {//файл открылся и будет проверка, есть ли почта в файле или есть(значит, можно создать новый аккаунт)
+		while (std::getline(file, email_file)) {
+			size = email_file.size();
+			for (int i = 0; i < size; ++i) {
+				if ((email_file[i] == ' ') and flag == true) {
+					flag = false;
+				}
+				else if (flag == true) {
+					email_file_not_space += email_file[i];
+				}
+			}
+			if (email_file_not_space == email) {
+				return false;
+			}
+			size = 0;
+			flag = true;
+			email_file = "";
+			email_file_not_space = "";
+		}
+	}
+
+	file.close();	
+
+	return true;
+}
 
 //проверка корректности почты(заканчивается на @gmail.com, @yandex.ru, @mail.ru), что почты нет в файле с аккаунтами
 //проверка корректности фамилии, ими, отчества(чтоб были только буквы)
@@ -15,8 +55,10 @@ bool check_reg(std::string email, std::string surname, std::string name, std::st
 		return false;
 	}
 
-	////////////////////////////////////////тут будет проверка с файлом
-
+	//проверка почты в файле
+	if (!(check_email_file(email))) {
+		return false;
+	}
 
 	//проверка фамилии(первая буква большая, остальные строчные, и что вообще это именно буквы)
 	for (int i = 0; i < surname.size(); ++i) {
@@ -111,7 +153,7 @@ int main() {
 		case (1):
 
 			std::cout << "Станьте членом нашей семьи! Заполните форму." << std::endl 
-				<< "---------------------------" << std::endl;
+				<< "----------------------------------------" << std::endl;
 			std::cin.ignore();
 			std::cout << "Почта: ";
 			std::getline(std::cin, Email);
@@ -125,11 +167,11 @@ int main() {
 			std::getline(std::cin, Age);
 
 			if (check_reg(Email, Surname, Name, Middlename, Age)) {
-				std::cout << "true ";
+				std::cout << "true";
 				std::cin >> key;
 			}
 			else {
-				std::cout << "false ";
+				std::cout << "false";
 				std::cin >> key;
 			}
 
