@@ -3,7 +3,47 @@
 #include <string>
 #include <fstream>//для работы с файлами
 #include <windows.h> // для system("cls")
-//using namespace std;
+
+//в файле ищет нужный аккаунт
+static bool check_akk(std::string email, std::string password) {
+	std::string akk_str = "";//в эту строку сохраняется строка
+	std::string akk = "";//сохраняется почта и пароль до пробела в строке
+	int size = 0;//длина стркои akk_str
+	int count = 0;//для того, чтобы считать именно пробелы на почту, пароль в строке(до пробела)
+
+	std::ifstream file("Akkaunt_email.txt"); // открыли файл для чтения, создали объект
+
+	if (!file.is_open() or file.peek() == EOF) {//проверка, что файл пуст
+		return false;
+	}
+	else {//файл открылся и будет проверка, есть ли почта в файле или есть(значит, можно создать новый аккаунт)
+		while (std::getline(file, akk_str)) {
+			size = akk_str.size();
+			for (int i = 0; i < size; ++i) {
+				if (akk_str[i] == ' ') {
+					count += 1;
+				}
+				if (count == 0) {
+					akk += akk_str[i];
+				}
+				if (count == 5 and akk_str[i] != '\n') {
+					akk += akk_str[i];
+				}
+			}
+			if (akk == email + ' ' + password) {
+				return true;
+			}
+
+			size = 0;
+			count = 0;
+			akk_str = "";
+			akk = "";
+		}
+	}
+
+	file.close();//закртыие файла	
+	return false;
+}
 
 //провреят, чтобы в пароле не было пробелов
 static bool check_password(std::string password) {
@@ -16,18 +56,17 @@ static bool check_password(std::string password) {
 }
 
 //проверка, что почты нет в реестре(в файле)
-bool check_email_file(std::string email) {
+static bool check_email_file(std::string email) {
 	std::string email_file = "";//в эту строку сохраняется строка
 	std::string email_file_not_space = "";//сохраняется почта до пробела в строке
 	int size = 0;//длина стркои email_file
 	bool flag = true;//для того, чтобы считать именно почту в строке(до пробела)
+
 	std::ifstream file("Akkaunt_email.txt"); // открыли файл для чтения, создали объект
+
 	if (!file.is_open() or file.peek() == EOF) {//проверка, что файл пуст
 		return true;
 	}
-	//else if (!file.is_open()) {//проверка, что файл не открылся
-	//
-	//}
 	else {//файл открылся и будет проверка, есть ли почта в файле или есть(значит, можно создать новый аккаунт)
 		while (std::getline(file, email_file)) {
 			size = email_file.size();
@@ -63,6 +102,13 @@ static bool check_reg(std::string email, std::string surname, std::string name, 
 		and (email.substr(email.size() - 10) == "@gmail.com" 
 			or email.substr(email.size() - 10) == "@yandex.ru"
 			or email.substr(email.size() - 8) == "@mail.ru"))) {
+		for (int i = 0; i < email.size(); ++i) {
+			if (email[i] == ' ') {
+				std::cout << "Ошибка! Неправильно набрана почта! Попробуйте снова!" << std::endl
+					<< "----------------------------------------------------" << std::endl;
+				return false;
+			}
+		}
 		std::cout << "Ошибка! Неправильно набрана почта! Попробуйте снова!" << std::endl
 			      << "----------------------------------------------------" << std::endl;
 		return false;
@@ -151,12 +197,12 @@ int main() {
 	setlocale(LC_ALL, "rus");
 
 	std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
-	std::string str2 = "______________________________________________________";
+	std::string str2 = "------------------------------------------------------";
 	std::string Key = "";
 	int key = -1;
 
 	std::cout << str1 << std::endl << str2 << std::endl;
-	
+
 	do {
 		std::string Email = "";
 		std::string Surname = "";
@@ -165,7 +211,8 @@ int main() {
 		std::string Age = "";
 		std::string password = "";
 		std::string password_test = "";
- 
+		std::string status = "";
+
 		std::cout << "Зарегистрироваться (up) / Войти (in) / Выйти (exit)" << std::endl << "Напиши слово из скобкок: ";
 		std::cin >> Key;
 
@@ -185,9 +232,8 @@ int main() {
 		switch (key)
 		{
 		case (1):
-
-			std::cout << "Станьте членом нашей семьи! Заполните форму." << std::endl 
-				      << "--------------------------------------------" << std::endl;
+			std::cout << "Станьте членом нашей семьи! Заполните форму." << std::endl
+				<< "--------------------------------------------" << std::endl;
 			std::cin.ignore();
 			std::cout << "Почта (mail.ru, gmail.com, yandex.ru): ";
 			std::getline(std::cin, Email);
@@ -199,6 +245,39 @@ int main() {
 			std::getline(std::cin, Middlename);
 			std::cout << "Возраст (от 14 до 99 лет): ";
 			std::getline(std::cin, Age);
+			do {
+				if (status != "") {
+					system("cls"); // очищает экран консоли на Windows
+					std::cout << str1 << std::endl << str2 << std::endl;
+					std::cout << "Станьте членом нашей семьи! Заполните форму." << std::endl
+						<< "--------------------------------------------" << std::endl;
+					std::cout << "Почта (mail.ru, gmail.com, yandex.ru): " << Email << std::endl;
+					std::cout << "Фамилия (С больщой буквы без пробелов): " << Surname << std::endl;
+					std::cout << "Имя (С больщой буквы без пробелов): " << Name << std::endl;
+					std::cout << "Отчество (С больщой буквы без пробелов): " << Middlename << std::endl;
+					std::cout << "Возраст (от 14 до 99 лет): " << Age << std::endl;
+				}
+				std::cout << "Вы библитекарь (yes/no): ";
+				std::getline(std::cin, status);
+			} while (status != "yes" and status != "no");
+
+			if (status == "no") {
+				status = "n";
+			}
+			else {
+				std::cout << "Введите ключ-пароль: ";
+				std::getline(std::cin, status);
+				if (status == "314") {
+					status = "b";
+				}
+				else {
+					system("cls"); // очищает экран консоли на Windows
+					std::cout << str1 << std::endl << str2 << std::endl;
+					std::cout << "Неправильный код библиотекаря." << std::endl
+						<< "------------------------------" << std::endl;
+					break;
+				}
+			}
 
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
@@ -225,50 +304,64 @@ int main() {
 
 				} while (password != password_test);
 
-				std::string fullname = Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password + "\n";
+				std::string fullname = Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password + " " + status + "\n";
 
 				std::ofstream file("Akkaunt_email.txt", std::ios_base::app); // открыли файл для записи и добавления в конец файла нового аккаунта
 				file << fullname;
 				file.close();//закрытие файла
-				
+
 				system("cls"); // очищает экран консоли на Windows
 				std::cout << str1 << std::endl << str2 << std::endl;
 				std::cout << "Аккаунт успешно создан!" << std::endl <<
 					"-----------------------" << std::endl;
 			}
-
 			key = -1;
 			Key = "";
+			Email = "";
+			Surname = "";
+			Name = "";
+			Middlename = "";
+			Age = "";
+			password = "";
+			password_test = "";
+			status = "";
 			break;
-			
 		case (2):
-			std::cout << "Наш верный посититель! С возращением!" << std::endl;
+			std::cout << "Наш верный посититель! С возращением!" << std::endl
+				<< "-------------------------------------" << std::endl;
+			std::cin.ignore();
+			std::cout << "Логин (ваша почта): ";
+			std::getline(std::cin, Email);
+			std::cout << "Пароль: ";
+			std::getline(std::cin, password);
 
-			//////////////////////////////
+			if (check_akk(Email, password)) {
 
-			system("cls"); // очищает экран консоли на Windows
-			std::cout << str1 << std::endl << str2 << std::endl;
+			}
+			else {
+				system("cls"); // очищает экран консоли на Windows
+				std::cout << str1 << std::endl << str2 << std::endl;
+				std::cout << "Неверная логин или пароль! Или Вы ещё не зарегестрировались!" << std::endl
+					<< "------------------------------------------------------------" << std::endl;
+			}
+
 			key = -1;
 			Key = "";
 			break;
 
 		case (3):
 			std::cout << "Завершение работы. Будем у Вас в кормане, если что:)" << std::endl;
-
-			//////////////////////////////
-			
 			break;
-
 		default:
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
-			std::cout << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl 
-				      << "--------------------------------------------------------------------" << std::endl;
+			std::cout << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl
+				<< "--------------------------------------------------------------------" << std::endl;
 			key = -1;
 			Key = "";
 			break;
 		}
 	} while (Key != "exit");
-	
+
 	return 0;
 }
