@@ -54,6 +54,17 @@ bool check_reg(std::string email, std::string surname, std::string name, std::st
 		}
 	}
 
+	if (age.size() > 0 and age.size() < 3 and age[0] != 0) {
+		for (int i = 0; i < age.size(); ++i) {
+			if (!(age[i] > 47 and age[i] < 58)) {
+				return false;
+			}
+		}
+	}
+	else {
+		return false;
+	}
+
 	return true;
 }
 
@@ -110,10 +121,12 @@ int main() {
 			std::getline(std::cin, Age);
 
 			if (check_reg(Email, Surname, Name, Middlename, Age)) {
-				
+				std::cout << "true ";
+				std::cin >> key;
 			}
 			else {
-				
+				std::cout << "false ";
+				std::cin >> key;
 			}
 
 			//////////////////////////////
