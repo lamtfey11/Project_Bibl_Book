@@ -5,6 +5,16 @@
 #include <windows.h> // для system("cls")
 //using namespace std;
 
+//провреят, чтобы в пароле не было пробелов
+static bool check_password(std::string password) {
+	for (int i = 0; i < password.size(); ++i) {
+		if (password[i] == ' ') {
+			return false;
+		}
+	}
+	return true;
+}
+
 //проверка, что почты нет в реестре(в файле)
 bool check_email_file(std::string email) {
 	std::string email_file = "";//в эту строку сохраняется строка
@@ -39,7 +49,7 @@ bool check_email_file(std::string email) {
 		}
 	}
 
-	file.close();	
+	file.close();//закртыие файла	
 
 	return true;
 }
@@ -47,7 +57,7 @@ bool check_email_file(std::string email) {
 //проверка корректности почты(заканчивается на @gmail.com, @yandex.ru, @mail.ru), что почты нет в файле с аккаунтами
 //проверка корректности фамилии, ими, отчества(чтоб были только буквы)
 //проверка корректности возраста(только цифры + в размере разумного)
-bool check_reg(std::string email, std::string surname, std::string name, std::string middlename, std::string age) {
+static bool check_reg(std::string email, std::string surname, std::string name, std::string middlename, std::string age) {
 	//проверка, что почта больше 10 символов, а также конец совпадает с типом почты
 	if (!((email.size() >= 10) 
 		and (email.substr(email.size() - 10) == "@gmail.com" 
@@ -154,6 +164,7 @@ int main() {
 		std::string Middlename = "";
 		std::string Age = "";
 		std::string password = "";
+		std::string password_test = "";
  
 		std::cout << "Зарегистрироваться (up) / Войти (in) / Выйти (exit)" << std::endl << "Напиши слово из скобкок: ";
 		std::cin >> Key;
@@ -192,11 +203,49 @@ int main() {
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
 
-			if (check_reg(Email, Surname, Name, Middlename, Age)) {
-				
+			if (check_reg(Email, Surname, Name, Middlename, Age)) {//ввод пароля, если всё отлично
+				do {
+					do {
+						system("cls"); // очищает экран консоли на Windows
+						std::cout << str1 << std::endl << str2 << std::endl;
+						std::cout << "Придумай теперь пароль!" << std::endl
+							<< "-----------------------" << std::endl
+							<< "Логин: " << Email << std::endl << "Пароль (без пробелов): ";
+						std::getline(std::cin, password);
+					} while (check_password(password) != true);
+
+					do {
+						system("cls"); // очищает экран консоли на Windows
+						std::cout << str1 << std::endl << str2 << std::endl;
+						std::cout << "Отлично! Придумай теперь пароль!" << std::endl
+							<< "--------------------------------" << std::endl
+							<< "Логин: " << Email << std::endl << "Повторно введите пароль (без пробелов): ";
+						std::getline(std::cin, password_test);
+					} while (check_password(password_test) != true);
+
+				} while (password != password_test);
+
+				std::ifstream file("Akkaunt_email.txt"); // открыли файл для чтения, создали объект
+				if (!file.is_open()) {//проверка, что файл не открылся
+					std::cout << "НЕТ" << std::endl;
+					std::cin >> Key;
+				}
+				else {
+					std::cout << "Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password" << std::endl;
+					std::cin >> Key;
+				}
+				file.open(Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password, std::ios_base::app);//добавление в конец файла с аккаунтами нового аккаунта
+				file.close();//закрытие файла
+				system("cls"); // очищает экран консоли на Windows
+				std::cout << str1 << std::endl << str2 << std::endl;
+				std::cout << "Аккаунт успешно создан!" << std::endl <<
+					"-----------------------" << std::endl;
 			}
-			
+
+			key = -1;
+			Key = "";
 			break;
+			
 		case (2):
 			std::cout << "Наш верный посититель! С возращением!" << std::endl;
 
@@ -204,17 +253,24 @@ int main() {
 
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
+			key = -1;
+			Key = "";
 			break;
+
 		case (3):
 			std::cout << "Завершение работы. Будем у Вас в кормане, если что:)" << std::endl;
 
 			//////////////////////////////
+			
 			break;
+
 		default:
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
 			std::cout << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl 
 				      << "--------------------------------------------------------------------" << std::endl;
+			key = -1;
+			Key = "";
 			break;
 		}
 	} while (Key != "exit");
