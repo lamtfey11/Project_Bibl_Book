@@ -8,21 +8,52 @@
 //проверка корректности возраста(только цифры + в размере разумного)
 bool check_reg(std::string email, std::string surname, std::string name, std::string middlename, std::string age) {
 	//проверка, что почта больше 10 символов, а также конец совпадает с типом почты
-	if (!((email.size() > 10) 
+	if (!((email.size() >= 10) 
 		and (email.substr(email.size() - 10) == "@gmail.com" 
 			or email.substr(email.size() - 10) == "@yandex.ru"
 			or email.substr(email.size() - 8) == "@mail.ru"))) {
-
 		return false;
 	}
 
 	////////////////////////////////////////тут будет проверка с файлом
 
-	int simbol_fillname = 0;
-	std::string fullname = surname + name + middlename;
-	///for (int i = 0; i < fullname.size(); ++i) {
-		//if (int(fullname[i]) )
-	//}
+
+	//проверка фамилии(первая буква большая, остальные строчные, и что вообще это именно буквы)
+	for (int i = 0; i < surname.size(); ++i) {
+		if (!(surname[0] >= 65 and surname[0] <= 90)) {
+			return false;
+		}
+		else if ((surname[0] >= 65 and surname[0] <= 90) and i > 0){
+			if (!(surname[i] >= 97 and surname[i] <= 122)) {
+				return false;
+			}
+		}
+	}
+
+	//проверка имени(первая буква большая, остальные строчные, и что вообще это именно буквы)
+	for (int i = 0; i < name.size(); ++i) {
+		if (!(name[0] >= 65 and name[0] <= 90)) {
+			return false;
+		}
+		else if ((name[0] >= 65 and name[0] <= 90) and i > 0) {
+			if (!(name[i] >= 97 and name[i] <= 122)) {
+				return false;
+			}
+		}
+	}
+
+	//проверка отчества(первая буква большая, остальные строчные, и что вообще это именно буквы)
+	for (int i = 0; i < middlename.size(); ++i) {
+		if (!(middlename[0] >= 65 and middlename[0] <= 90)) {
+			return false;
+		}
+		else if ((middlename[0] >= 65 and middlename[0] <= 90) and i > 0) {
+			if (!(middlename[i] >= 97 and middlename[i] <= 122)) {
+				return false;
+			}
+		}
+	}
+
 	return true;
 }
 
@@ -66,16 +97,17 @@ int main() {
 
 			std::cout << "Станьте членом нашей семьи! Заполните форму." << std::endl 
 				<< "---------------------------" << std::endl;
+			std::cin.ignore();
 			std::cout << "Почта: ";
-			std::cin >> Email;
+			std::getline(std::cin, Email);
 			std::cout << "Фамилия: ";
-			std::cin >> Surname;
+			std::getline(std::cin, Surname);
 			std::cout << "Имя: ";
-			std::cin >> Name;
+			std::getline(std::cin, Name);
 			std::cout << "Отчество: ";
-			std::cin >> Middlename;
+			std::getline(std::cin, Middlename);
 			std::cout << "Возраст: ";
-			std::cin >> Age;
+			std::getline(std::cin, Age);
 
 			if (check_reg(Email, Surname, Name, Middlename, Age)) {
 				
