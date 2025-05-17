@@ -54,11 +54,15 @@ bool check_reg(std::string email, std::string surname, std::string name, std::st
 		}
 	}
 
-	if (age.size() > 0 and age.size() < 3 and age[0] != 0) {
+	//проверка возраста(не начинался с нуля, были только цифры, и возраст был от 14 до 99)
+	if (age.size() > 1 and age.size() < 3 and age[0] != 0) {
 		for (int i = 0; i < age.size(); ++i) {
 			if (!(age[i] > 47 and age[i] < 58)) {
 				return false;
 			}
+		}
+		if (std::stoi(age) < 14) {
+			return false;
 		}
 	}
 	else {
