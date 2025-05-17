@@ -11,7 +11,7 @@ static bool check_akk(std::string email, std::string password) {
 	int size = 0;//длина стркои akk_str
 	int count = 0;//для того, чтобы считать именно пробелы на почту, пароль в строке(до пробела)
 
-	std::ifstream file("Akkaunt_email.txt"); // открыли файл для чтения, создали объект
+	std::ifstream file("Account_email.txt"); // открыли файл для чтения, создали объект
 
 	if (!file.is_open() or file.peek() == EOF) {//проверка, что файл пуст
 		return false;
@@ -62,7 +62,7 @@ static bool check_email_file(std::string email) {
 	int size = 0;//длина стркои email_file
 	bool flag = true;//для того, чтобы считать именно почту в строке(до пробела)
 
-	std::ifstream file("Akkaunt_email.txt"); // открыли файл для чтения, создали объект
+	std::ifstream file("Account_email.txt"); // открыли файл для чтения, создали объект
 
 	if (!file.is_open() or file.peek() == EOF) {//проверка, что файл пуст
 		return true;
@@ -275,6 +275,16 @@ int main() {
 					std::cout << str1 << std::endl << str2 << std::endl;
 					std::cout << "Неправильный код библиотекаря." << std::endl
 						<< "------------------------------" << std::endl;
+					key = -1;
+					Key = "";
+					Email = "";
+					Surname = "";
+					Name = "";
+					Middlename = "";
+					Age = "";
+					password = "";
+					password_test = "";
+					status = "";
 					break;
 				}
 			}
@@ -336,7 +346,7 @@ int main() {
 			std::getline(std::cin, password);
 
 			if (check_akk(Email, password)) {
-
+				
 			}
 			else {
 				system("cls"); // очищает экран консоли на Windows
@@ -348,7 +358,6 @@ int main() {
 			key = -1;
 			Key = "";
 			break;
-
 		case (3):
 			std::cout << "Завершение работы. Будем у Вас в кормане, если что:)" << std::endl;
 			break;

@@ -25,6 +25,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Akkaunt_email.txt" />
+    <Text Include="Account_email.txt" />
+    <Text Include="Account_class.txt" />
   </ItemGroup>
 </Project>
