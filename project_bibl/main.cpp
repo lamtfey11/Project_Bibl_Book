@@ -225,17 +225,12 @@ int main() {
 
 				} while (password != password_test);
 
-				std::ifstream file("Akkaunt_email.txt"); // открыли файл для чтения, создали объект
-				if (!file.is_open()) {//проверка, что файл не открылся
-					std::cout << "НЕТ" << std::endl;
-					std::cin >> Key;
-				}
-				else {
-					std::cout << "Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password" << std::endl;
-					std::cin >> Key;
-				}
-				file.open(Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password, std::ios_base::app);//добавление в конец файла с аккаунтами нового аккаунта
+				std::string fullname = Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password + "\n";
+
+				std::ofstream file("Akkaunt_email.txt", std::ios_base::app); // открыли файл для записи и добавления в конец файла нового аккаунта
+				file << fullname;
 				file.close();//закрытие файла
+				
 				system("cls"); // очищает экран консоли на Windows
 				std::cout << str1 << std::endl << str2 << std::endl;
 				std::cout << "Аккаунт успешно создан!" << std::endl <<
