@@ -20,7 +20,7 @@ bool check_reg(std::string email, std::string surname, std::string name, std::st
 
 	int simbol_fillname = 0;
 	std::string fullname = surname + name + middlename;
-	//for (int i = 0; i < fullname.size(); ++i) {
+	///for (int i = 0; i < fullname.size(); ++i) {
 		//if (int(fullname[i]) )
 	//}
 	return true;
