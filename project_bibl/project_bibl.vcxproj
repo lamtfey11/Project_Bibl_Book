@@ -130,7 +130,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="class.h" />
+    <ClInclude Include="Human.h" />
+    <ClInclude Include="Librarian.h" />
+    <ClInclude Include="Reader.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Account_class.txt" />

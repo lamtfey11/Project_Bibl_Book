@@ -1,13 +1,20 @@
-﻿#include "class.h"
+﻿#include "Reader.h"
 #include <iostream>
 #include <string>
 #include <fstream>//для работы с файлами
 #include <windows.h> // для system("cls")
 
+//вход в приложение и работа в нём в аккаунте
+void working_in_the_app(std::string Email, std::string Status) {
+
+}
+
 //в файле ищет нужный аккаунт
-static bool check_akk(std::string email, std::string password) {
+static char check_akk(std::string email, std::string password) {
 	std::string akk_str = "";//в эту строку сохраняется строка
 	std::string akk = "";//сохраняется почта и пароль до пробела в строке
+	char status = '-';//статус (бибилиотекарь или читатель)
+
 	int size = 0;//длина стркои akk_str
 	int count = 0;//для того, чтобы считать именно пробелы на почту, пароль в строке(до пробела)
 
@@ -29,9 +36,12 @@ static bool check_akk(std::string email, std::string password) {
 				if (count == 5 and akk_str[i] != '\n') {
 					akk += akk_str[i];
 				}
+				if (count == 6 and akk_str[i] != '\n') {
+					status = akk_str[i];
+				}
 			}
 			if (akk == email + ' ' + password) {
-				return true;
+				return status;
 			}
 
 			size = 0;
@@ -316,7 +326,7 @@ int main() {
 
 				std::string fullname = Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password + " " + status + "\n";
 
-				std::ofstream file("Akkaunt_email.txt", std::ios_base::app); // открыли файл для записи и добавления в конец файла нового аккаунта
+				std::ofstream file("Accaunt_email.txt", std::ios_base::app); // открыли файл для записи и добавления в конец файла нового аккаунта
 				file << fullname;
 				file.close();//закрытие файла
 
@@ -345,8 +355,8 @@ int main() {
 			std::cout << "Пароль: ";
 			std::getline(std::cin, password);
 
-			if (check_akk(Email, password)) {
-				
+			if (check_akk(Email, password) == 'n' or check_akk(Email, password) == 'b') {
+				working_in_the_app(Email, status);
 			}
 			else {
 				system("cls"); // очищает экран консоли на Windows
@@ -354,7 +364,10 @@ int main() {
 				std::cout << "Неверная логин или пароль! Или Вы ещё не зарегестрировались!" << std::endl
 					<< "------------------------------------------------------------" << std::endl;
 			}
-
+			
+			Email = "";
+			password = "";
+			status = "";
 			key = -1;
 			Key = "";
 			break;
