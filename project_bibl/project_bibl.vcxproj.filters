@@ -32,6 +32,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Account_email.txt" />
-    <Text Include="Account_class.txt" />
   </ItemGroup>
 </Project>

@@ -5,8 +5,11 @@
 #include <windows.h> // для system("cls")
 
 //вход в приложение и работа в нём в аккаунте
-void working_in_the_app(std::string Email, std::string Status) {
-
+static void working_in_the_app(std::string Email, std::string Status) {
+	std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
+	std::string str2 = "------------------------------------------------------";
+	system("cls"); // очищает экран консоли на Windows
+	std::cout << str1 << std::endl << str2 << std::endl;
 }
 
 //в файле ищет нужный аккаунт
