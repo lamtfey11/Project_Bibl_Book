@@ -17,6 +17,7 @@ protected:
 public:
 	//конструктор по умолчанию
 	Human() {
+		setlocale(LC_ALL, "rus");
 		this->Email = "";
 		this->Surname = "";
 		this->Name = "";
