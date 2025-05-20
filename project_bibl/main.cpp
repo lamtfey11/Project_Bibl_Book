@@ -11,6 +11,14 @@ static void working_in_the_app(std::string Email, std::string Status) {
 	system("cls"); // очищает экран консоли на Windows
 	std::cout << str1 << std::endl << str2 << std::endl;
 
+
+	if (Status == "n") {
+		Reader accaunt();
+	}
+	else {
+		Librarian accaunt(Email);
+	}
+
 	/////////////////////////////////////////////
 }
 
@@ -331,7 +339,7 @@ int main() {
 
 				std::string fullname = Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + password + " " + status + "\n";
 
-				std::ofstream file("Accaunt_email.txt", std::ios_base::app); // открыли файл для записи и добавления в конец файла нового аккаунта
+				std::ofstream file("Account_email.txt", std::ios_base::app); // открыли файл для записи и добавления в конец файла нового аккаунта
 				file << fullname;
 				file.close();//закрытие файла
 

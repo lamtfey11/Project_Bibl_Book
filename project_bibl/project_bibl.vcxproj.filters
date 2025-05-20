@@ -33,5 +33,12 @@
   <ItemGroup>
     <Text Include="Account_email.txt" />
     <Text Include="adcive_book.txt" />
+    <Text Include="history.txt" />
+    <Text Include="free_books.txt" />
+    <Text Include="paid_books.txt" />
+    <Text Include="account_books_n.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="account_books_b.txt" />
   </ItemGroup>
 </Project>

@@ -135,8 +135,15 @@
     <ClInclude Include="Reader.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="account_books_n.txt" />
     <Text Include="Account_email.txt" />
     <Text Include="adcive_book.txt" />
+    <Text Include="free_books.txt" />
+    <Text Include="history.txt" />
+    <Text Include="paid_books.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="account_books_b.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
