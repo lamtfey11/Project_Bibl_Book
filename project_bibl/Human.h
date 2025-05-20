@@ -15,6 +15,20 @@ protected:
 	std::string Bank_card;
 	std::string Money;
 public:
+	//конструктор по умолчанию
+	Human() {
+		this->Email = "";
+		this->Surname = "";
+		this->Name = "";
+		this->Middlename = "";
+		this->Age = "";
+		this->Password = "";
+		this->Status = "";
+		this->Bank_card = "Not bank_card";
+		this->Money = "0";
+	}
+
+	//конструктор с параметрами
 	Human(std::string Email, std::string Surname, std::string Name, std::string Middlename, std::string Age, std::string Password, std::string Status) {
 		this->Email = Email;
 		this->Surname = Surname;
@@ -27,10 +41,13 @@ public:
 		this->Money = "0";
 	}
 
+	//установаить карту(поменять)
 	virtual void set_bank_card(std::string Bank_card) {
 		this->Bank_card = Bank_card;
 	}
 
+
+	//деньги устнановить
 	virtual void set_money(std::string Money) {
 		if (Bank_card != "Not bank_card") {
 			this->Money = Money;
@@ -40,8 +57,12 @@ public:
 		}
 	}
 
+	//показать деньги
 	virtual std::string get_money() {
 		std::cout << "Bank_card: " << Bank_card << ". Money: " << Money << "." << std::endl;
 	}
 
+	~Human() {
+		////////////////////////тут надо в файл переносить данные
+	}
 };
