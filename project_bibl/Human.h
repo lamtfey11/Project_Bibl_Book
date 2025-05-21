@@ -35,7 +35,7 @@ public:
 	}
 
 	//показать деньги
-	std::string get_money() {
+	std::string get_money() const {
 		std::cout << "Bank_card: " << Bank_card << ". Money: " << Money << "." << std::endl;
 	}
 

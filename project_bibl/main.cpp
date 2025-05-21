@@ -11,13 +11,14 @@ static void working_in_the_app(std::string Email, std::string Status) {
 	system("cls"); // очищает экран консоли на Windows
 	std::cout << str1 << std::endl << str2 << std::endl;
 
-
 	if (Status == "n") {
-		Reader accaunt();
+		Reader accaunt(Email);
 	}
 	else {
 		Librarian accaunt(Email);
 	}
+
+
 
 	/////////////////////////////////////////////
 }

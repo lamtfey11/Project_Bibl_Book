@@ -1,1 +1,2 @@
-123@mail.ru S S S 20 123 b 1234123412341234 1200
+34@mail.ru K K K 23 34 b No_bank_card No_money
+MA@mail.ru M M M 20 123 b No_bank_card No_money
