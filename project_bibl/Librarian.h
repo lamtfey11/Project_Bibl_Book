@@ -146,10 +146,8 @@ public:
 		}
 		in_file.close();
 
-		// 2. Теперь открываем файл на запись с trunc (это очистит его)
 		std::ofstream out_file("account_books_b.txt", std::ios::trunc);
 
-		// 3. Записываем все данные обратно
 		for (const auto& line : akk) {
 			out_file << line << "\n";
 		}

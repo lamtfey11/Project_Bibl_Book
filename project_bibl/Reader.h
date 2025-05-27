@@ -14,12 +14,13 @@ public:
 		std::string argument = "";
 		std::vector<std::string> arguments;
 		file_result = file_account_books_b_email(email, "account_books_n.txt");
-
+	
 
 		if (file_result != " ") {
 			file_result += ' ';
 			for (int i = 0; i < file_result.size() + 1; ++i) {
 				if (file_result[i] == ' ' or file_result[i] == '\n') {
+					std::cout << argument << std::endl;
 					arguments.push_back(argument);
 					argument = "";
 				}
@@ -38,20 +39,29 @@ public:
 			Status = arguments[6];
 			Bank_card = arguments[7];
 			Money = arguments[8];
+			if (arguments.size() > 9) {
+				for (int i = 9; i < arguments.size(); ++i) {
+					if (arguments[i][0] == 'f') {
+						Free_books.push_back(arguments[i]);
+					}
+					else if (arguments[i][0] != 'f') {
+						Paid_books.push_back(arguments[i]);
+					}
+				}
+			}
 
 			argument = "";
 			std::vector<std::string>().swap(arguments);//пустой вектор
 		}
 		else {
 			file_result = file_account_books_b_email(email, "Account_email.txt") + ' ';
-			std::cout << file_result << std::endl;
+			
 			for (int i = 0; i < file_result.size() + 1; ++i) {
 				if (file_result[i] == ' ' or file_result[i] == '\n') {
 					arguments.push_back(argument);
 					argument = "";
 				}
 				else if (file_result[i] != ' ') {
-					std::cout << file_result[i] << std::endl;
 					argument += file_result[i];
 				}
 
@@ -130,6 +140,52 @@ public:
 	}
 
 	~Reader() {
-		/////////////////
+		std::string acc_librarian = Email + " " + Surname + " " + Name + " " + Middlename + " " + Age + " " + Password + " " + Status + " " + Bank_card + " " + Money;
+		if (Free_books.size() != 0) {
+			for (int i = 0; i < Free_books.size(); ++i) {
+				acc_librarian += " " + Free_books[i];
+			}
+		}
+		if (Paid_books.size() != 0) {
+			for (int i = 0; i < Paid_books.size(); ++i) {
+				acc_librarian += " " + Paid_books[i];
+			}
+		}
+		std::string akk_str = "";//сохраняется почта
+		std::string akk_file = "";
+		bool flag = false;
+		std::vector<std::string> akk;
+		std::ifstream file("account_books_n.txt", std::ios::trunc); // открыли файл для чтения, создали объект
+
+		std::ifstream in_file("account_books_n.txt");
+		if (!in_file.is_open() || in_file.peek() == EOF) {
+			akk.push_back(acc_librarian + "\n");
+		}
+		else {
+			while (std::getline(in_file, akk_file)) {
+				size_t first_space = akk_file.find(' ');
+				akk_str = akk_file.substr(0, first_space);
+
+				if (Email == akk_str) {
+					akk.push_back(acc_librarian);
+					flag = true;
+				}
+				else {
+					akk.push_back(akk_file);
+				}
+				akk_str = "";
+			}
+			if (!flag) {
+				akk.push_back(acc_librarian);
+			}
+		}
+		in_file.close();
+
+		std::ofstream out_file("account_books_n.txt", std::ios::trunc);
+
+		for (const auto& line : akk) {
+			out_file << line << "\n";
+		}
+		out_file.close();
 	}
 };

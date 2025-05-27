@@ -14,7 +14,7 @@ static void working_in_the_app(std::string Email, std::string Status) {
 	if (Status == "n") {
 		Reader accaunt(Email);
 	}
-	else {
+	else if (Status == "b") {
 		Librarian accaunt(Email);
 	}
 
@@ -368,8 +368,9 @@ int main() {
 			std::getline(std::cin, Email);
 			std::cout << "Пароль: ";
 			std::getline(std::cin, password);
+			status = check_akk(Email, password);
 
-			if (check_akk(Email, password) == 'n' or check_akk(Email, password) == 'b') {
+			if (status == "n" or status == "b") {
 				working_in_the_app(Email, status);
 			}
 			else {
