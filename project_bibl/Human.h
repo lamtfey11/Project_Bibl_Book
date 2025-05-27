@@ -43,9 +43,6 @@ public:
 		if(flag == true) this->Bank_card = Bank_card;
 	}
 
-	virtual void advice_book() {
-	}
-
 	virtual void print() {
 	}
 

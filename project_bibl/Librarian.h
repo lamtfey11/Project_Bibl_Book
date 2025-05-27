@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>//для работы с файлами
+#include <windows.h> // для system("cls")
 
 //дочерний класс библиотекарь
 class Librarian: public Human{
@@ -99,7 +100,7 @@ public:
 	}
 
 	//смотрит список советов и добялет книги в реестр
-	void advice_book() override {
+	void advice_book() {
 		/////////////////acdive_books
 	}
 
@@ -113,20 +114,14 @@ public:
 		/////////////////free_paid_books
 	}
 
-	//добавление книги в список
-	void delete_book() {
-		/////////////////free_paid_books
-	}
-
 	void print() override {
 		std::cout << "Данные библиотекаря:" << std::endl;
 		std::cout << "Почта: " << Email << std::endl;
 		std::cout << "ФИО: " << Surname << " " << Name << " " << Middlename << std::endl;
 		std::cout << "Возраст: " << Age << std::endl;
 		std::cout << "Ваша банковская карта (и деньги на счету аккаунта): " << Bank_card << " (" << Money << ")" << std::endl;
-		std::cout << "--------------------------------------------------------------------------------" << std::endl;
+		std::cout << "---------------------------------------------------------------------------" << std::endl;
 		std::cout << "Добавить книгу в бесплатную или платную библиотеки (plus_book)" << std::endl;
-		std::cout << "Убрать книгу из бесплатной или платной библиотек (delete_book)" << std::endl;
 		std::cout << "Посмотреть список предложенных книг (advice_book)" << std::endl;
 		std::cout << "Удалить всю историю пользователя (delete_history)" << std::endl;
 		std::cout << "Найстроки (set_bank_card)" << std::endl;

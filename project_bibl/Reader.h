@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>//для работы с файлами
+#include <windows.h> // для system("cls")
 
 //дочерний класс читатель
 class Reader : public Human {
@@ -123,8 +124,74 @@ public:
 	}
 
 	//посоветовать книгу
-	void advice_book() override {
-		/////////////////acdive_books
+	void advice_book() {
+		std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
+		std::string str2 = "------------------------------------------------------";
+		bool flag = true;
+		std::string book = "";
+		std::string book_in_file = "";
+		std::cout << "Введи беслпатной (f) или платной (цену) будет книга: ";
+		std::cin >> book;
+		if (book != "f") {
+			for (int i = 0; i < book.size(); ++i) {
+				if (int(book[i]) < 48 or int(book[i]) > 57) {
+					flag = false;
+					break;
+				}
+			}
+		}
+		if (flag == true) {
+			book_in_file += book + ",";
+		}
+		book = "";
+		std::cin.ignore();
+		std::cout << "Введи название книги (слитно): ";
+		std::getline(std::cin, book);
+		for (int i = 0; i < book.size(); ++i) {
+			if (book == " ") {
+				flag = false;
+				break;
+			}
+		}
+		if (flag == true) {
+			book_in_file += book + ",";
+		}
+		book = "";
+		std::cout << "Введи фамилию автора книги: ";
+		std::getline(std::cin, book);
+		for (int i = 0; i < book.size(); ++i) {
+			if (book == " ") {
+				flag = false;
+				break;
+			}
+		}
+		if (flag == true) {
+			book_in_file += book + ",";
+		}
+		book = "";
+		std::cout << "Введи возрастное ограничение книги: ";
+		std::getline(std::cin, book);
+		
+		if (book.size() < 1 or book.size() > 2) {
+			flag = false;
+		}
+
+		for (int i = 0; i < book.size(); ++i) {
+			if (int(book[i]) < 48 or int(book[i]) > 57) {
+				flag = false;
+				break;
+			}
+		}
+		
+		if (flag == true) {
+			book_in_file += book + "\n";
+		}
+
+		if (flag == true) {
+			std::ofstream file("adcive_book.txt", std::ios_base::app); // открыли файл для записи и добавления в конец файла нового аккаунта
+			file << book_in_file;
+			file.close();//закрытие файла
+		}
 	}
 
 	//купить книгу
@@ -134,16 +201,26 @@ public:
 
 	//внести деньги
 	void set_money(std::string Money) {
-		bool flag = true;
-		if (Money.size() > 4 or Money.size() < 3) flag = false;
-		for (int i = 0; i < Money.size(); ++i) {
-			if (int(Money[i]) < 48 or int(Money[i]) > 57) {
-				flag = false;
-				break;
-			}
-		}
+		if (Bank_card != "No_bank_card") {
+			bool flag = true;
+			if (Money.size() > 4 or Money.size() < 3) flag = false;
 
-		if (flag == true) this->Money = Money;
+			for (int i = 0; i < Money.size(); ++i) {
+				if (int(Money[i]) < 48 or int(Money[i]) > 57) {
+					flag = false;
+					break;
+				}
+			}
+
+			if (flag == true) this->Money = Money;
+		}
+		else {
+			std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
+			std::string str2 = "------------------------------------------------------";
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			std::cout << "Введите сначала карту!" << std::endl << str2 << std::endl;
+		}
 	}
 
 	//сохранение действий в файл
@@ -159,7 +236,7 @@ public:
 		std::cout << "Ваша банковская карта (и деньги на счету аккаунта): " << Bank_card << " (" << Money << ")" << std::endl;
 		std::cout << "Кол-во купленных книг: " << Paid_books.size() << std::endl;
 		std::cout << "Кол-во взятых книг: " << Free_books.size() << std::endl;
-		std::cout << "--------------------------------------------------------------------------------" << std::endl;
+		std::cout << "---------------------------------------------------------------------------" << std::endl;
 		std::cout << "Взять книгу из бесплатной библиотеки (take_a_book)" << std::endl;
 		std::cout << "Вернуть книгу в бесплатную библиотеку (return_the_book)" << std::endl;
 		std::cout << "Купить книгу (buy_a_book)" << std::endl;
