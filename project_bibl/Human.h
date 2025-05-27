@@ -42,6 +42,9 @@ public:
 	virtual void advice_book() {
 	}
 
+	virtual void print() {
+	}
+
 	virtual ~Human() {
 	}
 };

@@ -12,7 +12,6 @@ public:
 		std::vector<std::string> arguments;
 		file_result = file_account_books_b_email(email, "account_books_b.txt");
 
-
 		if (file_result != " ") {
 			file_result += ' ';
 			for (int i = 0; i < file_result.size() + 1; ++i) {
@@ -112,6 +111,27 @@ public:
 	//добавление книги в список
 	void plus_book() {
 		/////////////////free_paid_books
+	}
+
+	//добавление книги в список
+	void delete_book() {
+		/////////////////free_paid_books
+	}
+
+	void print() override {
+		std::cout << "Данные библиотекаря:" << std::endl;
+		std::cout << "Почта: " << Email << std::endl;
+		std::cout << "ФИО: " << Surname << " " << Name << " " << Middlename << std::endl;
+		std::cout << "Возраст: " << Age << std::endl;
+		std::cout << "Ваша банковская карта (и деньги на счету аккаунта): " << Bank_card << " (" << Money << ")" << std::endl;
+		std::cout << "--------------------------------------------------------------------------------" << std::endl;
+		std::cout << "Добавить книгу в бесплатную или платную библиотеки (plus_book)" << std::endl;
+		std::cout << "Убрать книгу из бесплатной или платной библиотек (delete_book)" << std::endl;
+		std::cout << "Посмотреть список предложенных книг (advice_book)" << std::endl;
+		std::cout << "Удалить всю историю пользователя (delete_history)" << std::endl;
+		std::cout << "Найстроки (set_bank_card)" << std::endl;
+		std::cout << "Выход (exit)" << std::endl;
+		std::cout << "Напиши слово из скобок: ";
 	}
 
 	~Librarian() {

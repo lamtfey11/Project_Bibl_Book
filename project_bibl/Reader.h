@@ -14,13 +14,11 @@ public:
 		std::string argument = "";
 		std::vector<std::string> arguments;
 		file_result = file_account_books_b_email(email, "account_books_n.txt");
-	
 
 		if (file_result != " ") {
 			file_result += ' ';
 			for (int i = 0; i < file_result.size() + 1; ++i) {
 				if (file_result[i] == ' ' or file_result[i] == '\n') {
-					std::cout << argument << std::endl;
 					arguments.push_back(argument);
 					argument = "";
 				}
@@ -137,6 +135,30 @@ public:
 	//внести деньги
 	void set_money() {
 
+	}
+
+	//сохранение действий в файл
+	void history() {
+
+	}
+
+	void print() override {
+		std::cout << "Данные читателя:" << std::endl;
+		std::cout << "Почта: " << Email << std::endl;
+		std::cout << "ФИО: " << Surname << " " << Name << " " << Middlename << std::endl;
+		std::cout << "Возраст: " << Age << std::endl;
+		std::cout << "Ваша банковская карта (и деньги на счету аккаунта): " << Bank_card << " (" << Money << ")" << std::endl;
+		std::cout << "Кол-во купленных книг: " << Paid_books.size() << std::endl;
+		std::cout << "Кол-во взятых книг: " << Free_books.size() << std::endl;
+		std::cout << "--------------------------------------------------------------------------------" << std::endl;
+		std::cout << "Взять книгу из бесплатной библиотеки (take_a_book)" << std::endl;
+		std::cout << "Вернуть книгу в бесплатную библиотеку (return_the_book)" << std::endl;
+		std::cout << "Купить книгу (buy_a_book)" << std::endl;
+		std::cout << "Предложить библиотеке книгу (advice_book)" << std::endl;
+		std::cout << "Внести в аккаунт деньги (set_money)" << std::endl;
+		std::cout << "Найстроки (set_bank_card)" << std::endl;
+		std::cout << "Выход (exit)" << std::endl;
+		std::cout << "Напиши слово из скобок: ";
 	}
 
 	~Reader() {

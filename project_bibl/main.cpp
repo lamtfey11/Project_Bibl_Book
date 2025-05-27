@@ -4,6 +4,24 @@
 #include <fstream>//для работы с файлами
 #include <windows.h> // для system("cls")
 
+void working_in_the_app_meny(Human& account, std::string status) {
+	
+	
+	if (status == "n") {
+		do {
+			account.print();
+
+		} while ();
+	}
+	else if (status == "b") {
+		do {
+
+		} while ();
+	}
+	std::cin >> status;
+}
+
+
 //вход в приложение и работа в нём в аккаунте
 static void working_in_the_app(std::string Email, std::string Status) {
 	std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
@@ -13,14 +31,12 @@ static void working_in_the_app(std::string Email, std::string Status) {
 
 	if (Status == "n") {
 		Reader accaunt(Email);
+		working_in_the_app_meny(accaunt, Status);
 	}
 	else if (Status == "b") {
 		Librarian accaunt(Email);
+		working_in_the_app_meny(accaunt, Status);
 	}
-
-
-
-	/////////////////////////////////////////////
 }
 
 //в файле ищет нужный аккаунт

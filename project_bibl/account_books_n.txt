@@ -1,3 +1,3 @@
-lmatfey11@gmail.com Matfey Lisov Igor 20 6375 n 1234123412341234 1200 f,Sherlok,Doil,16 210,Lulu,Lu,16 f,A,A,18 f,B,B,23 200,C,C,21
+lmatfey11@gmail.com Matfey Lisov Igor 20 6375 n 1234123412341234 1200 f,Sherlok,Doil,16 f,A,A,18 f,B,B,23 210,Lulu,Lu,16 200,C,C,21
 lmi@mail.ru L M I 20 123 n Not_bank_card Not_money f,A,A,18
 f@gmail.com A A A 23 123 n No bank_card No money
