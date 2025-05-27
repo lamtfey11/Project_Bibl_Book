@@ -4,31 +4,129 @@
 #include <fstream>//для работы с файлами
 #include <windows.h> // для system("cls")
 
-void working_in_the_app_meny(Human& account, std::string status) {
-	
-	
-	if (status == "n") {
-		do {
-			account.print();
+void working_in_the_app_meny(Librarian& account, std::string status) {
+	std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
+	std::string str2 = "------------------------------------------------------";
+	std::string Key = "";
+	int key = -1;
+	std::string bank_card = "";
 
-		} while ();
-	}
-	else if (status == "b") {
-		do {
+	do {
+		system("cls"); // очищает экран консоли на Windows
+		std::cout << str1 << std::endl << str2 << std::endl;
+		account.print();
+		std::cin >> Key;
+			
+		if (Key == "plus_book") key = 0;
+		else if (Key == "delete_book") key = 1;
+		else if (Key == "advice_book") key = 2;
+		else if (Key == "delete_history") key = 3;
+		else if (Key == "set_bank_card") key = 4;
+		else if (Key == "exit") key = 5;
 
-		} while ();
-	}
-	std::cin >> status;
+		switch (key)
+		{
+		case 0:
+			account.plus_book();
+			break;
+		case 1:
+			account.delete_book();
+			break;
+		case 2:
+			account.advice_book();
+			break;
+		case 3:
+			account.delete_history();
+			break;
+		case 4:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			std::cout << "Введите номер банковской карты (16 цифр без пробелов): " << std::endl;
+			std::cin >> bank_card;
+			account.set_bank_card(bank_card);
+			break;
+		case 5:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			std::cout << "Вы вернулись в начальное меню!" << std::endl
+				<< "------------------------------" << std::endl;
+			break;
+		default:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			std::cout << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl
+				<< "--------------------------------------------------------------------" << std::endl;
+			key = -1;
+			Key = "";
+			break;
+		}
+	} while (Key != "exit");
+}
+
+
+void working_in_the_app_meny(Reader& account, std::string status) {
+	std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
+	std::string str2 = "------------------------------------------------------";
+	std::string Key = "";
+	int key = -1;
+	std::string bank_card = "";
+	std::string money = "";
+
+	do {
+		system("cls"); // очищает экран консоли на Windows
+		std::cout << str1 << std::endl << str2 << std::endl;
+		account.print();
+		std::cin >> Key;
+
+		if (Key == "take_a_book") key = 0;
+		else if (Key == "return_the_book") key = 1;
+		else if (Key == "buy_a_book") key = 2;
+		else if (Key == "advice_book") key = 3;
+		else if (Key == "set_money") key = 4;
+		else if (Key == "set_bank_card") key = 5;
+		else if (Key == "exit") key = 6;
+
+		switch (key)
+		{
+		case 0:
+
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			std::cout << "Введите (от 100 до 9999 рублей): " << std::endl;
+			std::cin >> money;
+			account.set_money(money);
+			break;
+		case 6:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			std::cout << "Вы вернулись в начальное меню!" << std::endl
+				<< "------------------------------" << std::endl;
+			break;
+		default:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			std::cout << "Неверная команда. Просим Вас написать нужную Вам для работы команду!" << std::endl
+				<< "--------------------------------------------------------------------" << std::endl;
+			key = -1;
+			Key = "";
+			break;
+		}
+	} while (Key != "exit");
 }
 
 
 //вход в приложение и работа в нём в аккаунте
 static void working_in_the_app(std::string Email, std::string Status) {
-	std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
-	std::string str2 = "------------------------------------------------------";
-	system("cls"); // очищает экран консоли на Windows
-	std::cout << str1 << std::endl << str2 << std::endl;
-
 	if (Status == "n") {
 		Reader accaunt(Email);
 		working_in_the_app_meny(accaunt, Status);
@@ -395,7 +493,7 @@ int main() {
 				std::cout << "Неверная логин или пароль! Или Вы ещё не зарегестрировались!" << std::endl
 					<< "------------------------------------------------------------" << std::endl;
 			}
-			
+
 			Email = "";
 			password = "";
 			status = "";

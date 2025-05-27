@@ -72,8 +72,8 @@ public:
 			Age = arguments[4];
 			Password = arguments[5];
 			Status = arguments[6];
-			Bank_card = "No bank_card";
-			Money = "No money";
+			Bank_card = "No_bank_card";
+			Money = "No_money";
 
 			argument = "";
 			std::vector<std::string>().swap(arguments);//пустой вектор
@@ -133,8 +133,17 @@ public:
 	}
 
 	//внести деньги
-	void set_money() {
+	void set_money(std::string Money) {
+		bool flag = true;
+		if (Money.size() > 4 or Money.size() < 3) flag = false;
+		for (int i = 0; i < Money.size(); ++i) {
+			if (int(Money[i]) < 48 or int(Money[i]) > 57) {
+				flag = false;
+				break;
+			}
+		}
 
+		if (flag == true) this->Money = Money;
 	}
 
 	//сохранение действий в файл

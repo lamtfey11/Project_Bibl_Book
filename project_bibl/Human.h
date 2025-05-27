@@ -31,12 +31,16 @@ public:
 
 	//установаить карту(помен€ть)
 	void set_bank_card(std::string Bank_card) {
-		this->Bank_card = Bank_card;
-	}
+		bool flag = true;
+		if (Bank_card.size() != 16) flag = false;
+		for (int i = 0; i < Bank_card.size(); ++i) {
+			if (int(Bank_card[i]) < 48 or int(Bank_card[i]) > 57) {
+				flag = false;
+				break;
+			}
+		}
 
-	//показать деньги
-	std::string get_money() const {
-		std::cout << "Bank_card: " << Bank_card << ". Money: " << Money << "." << std::endl;
+		if(flag == true) this->Bank_card = Bank_card;
 	}
 
 	virtual void advice_book() {
