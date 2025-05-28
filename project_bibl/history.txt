@@ -1,1 +1,4 @@
-r@gmail.com: buy_a_book
+r@gmail.com: take_a_book
+r@gmail.com: take_a_book
+r@gmail.com: return_the_book
+r@gmail.com: take_a_book

@@ -1,2 +1,0 @@
-f,Mumu,Turgenev,56
-345,Mama,Mama,34

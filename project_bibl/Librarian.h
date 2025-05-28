@@ -7,12 +7,16 @@
 //дочерний класс библиотекарь
 class Librarian: public Human{
 public:
+	//конуструктор с параметром
 	Librarian(std::string email) {
+		//резульатат работы функции file_account_books_b_email, для определения пуст ли файл с акканутами (с инфой account_books_b), там строка с аккаунтом
 		std::string file_result = "";
+		//для хранения данных из файла
 		std::string argument = "";
+		//хранит данные аккаунта, в каждом эелементе ветктора данные для заполнения полей
 		std::vector<std::string> arguments;
 		file_result = file_account_books_b_email(email, "account_books_b.txt");
-
+		//аккаунт уже сущетсвует
 		if (file_result != " ") {
 			file_result += ' ';
 			for (int i = 0; i < file_result.size() + 1; ++i) {
@@ -63,7 +67,8 @@ public:
 
 		}
 	}
-
+	
+	//из файла достаётся данные аккаунта
 	std::string file_account_books_b_email(std::string email, std::string name_file) {
 		std::string akk_str = "";//в эту строку сохраняется строка
 		std::string akk = "";//сохраняется почта до пробела в строке
@@ -97,7 +102,7 @@ public:
 
 	//смотрит список советов и добялет книги в реестр
 	void advice_book() {
-		std::ifstream in_free("advice_book.txt"); // окрываем файл для чтения
+		std::ifstream in_free("adcive_book.txt"); // окрываем файл для чтения
 		std::string in_file_str = "";
 		std::vector<std::string> books_advice;
 		std::vector<std::string> books_adcive_copy;
@@ -266,7 +271,7 @@ public:
 		std::cout << "Возраст: " << Age << std::endl;
 		std::cout << "---------------------------------------------------------------------------" << std::endl;
 		std::cout << "Добавить книгу в бесплатную или платную библиотеки (plus_book)" << std::endl;
-		std::cout << "Посмотреть список предложенных книг (advice_book)" << std::endl;
+		std::cout << "Посмотреть список предложенных книг (adcive_book)" << std::endl;
 		std::cout << "Удалить всю историю пользователя (delete_history)" << std::endl;
 		std::cout << "Выход (exit)" << std::endl;
 		std::cout << "Напиши слово из скобок: ";

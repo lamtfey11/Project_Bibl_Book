@@ -12,6 +12,7 @@ private:
 	std::vector<std::string> Free_books;
 	std::vector<std::string> Paid_books;
 public:
+	//конуструктор с параметром
 	Reader(std::string email) {
 		std::string file_result = "";
 		std::string argument = "";
@@ -387,7 +388,7 @@ public:
 		std::cout << "Взять книгу из бесплатной библиотеки (take_a_book)" << std::endl;
 		std::cout << "Вернуть книгу в бесплатную библиотеку (return_the_book)" << std::endl;
 		std::cout << "Купить книгу (buy_a_book)" << std::endl;
-		std::cout << "Предложить библиотеке книгу (advice_book)" << std::endl;
+		std::cout << "Предложить библиотеке книгу (adcive_book)" << std::endl;
 		std::cout << "Внести в аккаунт деньги (set_money)" << std::endl;
 		std::cout << "Найстроки (set_bank_card)" << std::endl;
 		std::cout << "Выход (exit)" << std::endl;

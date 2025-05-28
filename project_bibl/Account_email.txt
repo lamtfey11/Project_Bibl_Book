@@ -15,3 +15,4 @@ f@gmail.com A A A 23 123 n
 katyasoslka@mail.ru Starikova Katya Clala 99 1488 n
 b@gmail.com B B B 50 B b
 r@gmail.com R R R 50 R n
+L@gmail.com L L L 50 L b

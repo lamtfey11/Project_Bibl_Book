@@ -2,4 +2,4 @@ lmatfey11@gmail.com Matfey Lisov Igor 20 6375 n 1234123412341234 9866 f,Sherlok,
 lmi@mail.ru L M I 20 123 n Not_bank_card Not_money f,A,A,18
 f@gmail.com A A A 23 123 n 1234123412341234 1234
 katyasoslka@mail.ru Starikova Katya Clala 99 1488 n No bank_card No money
-r@gmail.com R R R 50 R n 1234123412341234 10000
+r@gmail.com R R R 50 R n 1234123412341234 9543 f,Onegin,Puschin,12 f,hf,hfj,15 457,g,g,45

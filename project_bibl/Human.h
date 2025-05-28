@@ -25,6 +25,7 @@ public:
 		this->Status = "";
 	}
 
+	//виртуальная функция вывода заданий и данных
 	virtual void print() {
 	}
 
