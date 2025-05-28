@@ -20,31 +20,32 @@ void working_in_the_app_meny(Librarian& account, std::string status) {
 		if (Key == "plus_book") key = 0;
 		else if (Key == "advice_book") key = 1;
 		else if (Key == "delete_history") key = 2;
-		else if (Key == "set_bank_card") key = 3;
-		else if (Key == "exit") key = 4;
+		else if (Key == "exit") key = 3;
 
 		switch (key)
 		{
 		case 0:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
 			account.plus_book();
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
 			break;
 		case 1:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
 			account.advice_book();
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
 			break;
 		case 2:
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
 			account.delete_history();
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
 			break;
 		case 3:
-			system("cls"); // очищает экран консоли на Windows
-			std::cout << str1 << std::endl << str2 << std::endl;
-			std::cout << "Введите номер банковской карты (16 цифр без пробелов): " << std::endl;
-			std::cin >> bank_card;
-			account.set_bank_card(bank_card);
-			system("cls"); // очищает экран консоли на Windows
-			std::cout << str1 << std::endl << str2 << std::endl;
-			bank_card = "";
-			break;
-		case 4:
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
 			std::cout << "Вы вернулись в начальное меню!" << std::endl
@@ -90,15 +91,24 @@ void working_in_the_app_meny(Reader& account, std::string status) {
 		case 0:
 			system("cls"); // очищает экран консоли на Windows
 			std::cout << str1 << std::endl << str2 << std::endl;
-			account.advice_book();
-			system("cls"); // очищает экран консоли на Windows
-			std::cout << str1 << std::endl << str2 << std::endl;
+			account.take_a_book();
+			account.history("take_a_book");
 			break;
 		case 1:
-
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			account.return_the_book();
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			account.history("return_the_book");
 			break;
 		case 2:
-
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			account.buy_a_book();
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			account.history("buy_a_book");
 			break;
 		case 3:
 			system("cls"); // очищает экран консоли на Windows

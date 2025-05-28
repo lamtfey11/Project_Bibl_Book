@@ -7,6 +7,8 @@
 //дочерний класс читатель
 class Reader : public Human {
 private:
+	std::string Bank_card;
+	std::string Money;
 	std::vector<std::string> Free_books;
 	std::vector<std::string> Paid_books;
 public:
@@ -113,14 +115,158 @@ public:
 		return " ";
 	}
 
+	//установаить карту(поменять)
+	void set_bank_card(std::string Bank_card) {
+		bool flag = true;
+		if (Bank_card.size() != 16) flag = false;
+		for (int i = 0; i < Bank_card.size(); ++i) {
+			if (int(Bank_card[i]) < 48 or int(Bank_card[i]) > 57) {
+				flag = false;
+				break;
+			}
+		}
+
+		if (flag == true) this->Bank_card = Bank_card;
+	}
+
 	//взять книгу
 	void take_a_book() {
+		std::ifstream in_free("free_books.txt"); // окрываем файл для чтения
+		std::string in_file_str = "";
+		std::vector<std::string> books_free;
+		std::vector<std::string> books_free_copy;
+		while (std::getline(in_free, in_file_str))
+		{
+			books_free.push_back(in_file_str);
+		}
+		in_free.close();     // закрываем файл
 
+		std::cout << "Книги бесплатной библиотеки:" << std::endl;
+		for (int i = 0; i < books_free.size(); ++i) {
+			std::cout << books_free[i] << std::endl;
+		}
+
+		std::string book = "";
+		std::cin.ignore();
+		std::cout << "Введи книгу (price,Name,Aythor,Age): ";
+		std::getline(std::cin, book);
+		std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
+		std::string str2 = "------------------------------------------------------";
+		system("cls"); // очищает экран консоли на Windows
+		std::cout << str1 << std::endl << str2 << std::endl;
+		for (int i = 0; i < books_free.size(); ++i) {
+			if (books_free[i] != book) {
+				books_free_copy.push_back(books_free[i]);
+			}
+			else if (books_free[i] == book) {
+				if ((int(books_free[i][books_free[i].size() - 2]) - 48) * 10 + int(books_free[i][books_free[i].size() - 1] - 48) <= std::stoi(Age)) {
+					Free_books.push_back(book);
+				}
+				else {
+					books_free_copy.push_back(books_free[i]);
+					std::cout << "Книга не подходит по возрасту!"
+						      << "------------------------------" << std::endl;
+				}
+			}
+		}
+	
+		std::ofstream out_free("free_books.txt", std::ios::trunc);
+		for (const auto& line : books_free_copy) {
+			out_free << line << "\n";
+		}
+		out_free.close();
+		std::vector<std::string>().swap(books_free);//пустой вектор
+		std::vector<std::string>().swap(books_free_copy);//пустой вектор
 	}
 
 	//вернуть книгу
 	void return_the_book() {
+		std::cout << "Бесплатные книги вашей библиотеки:" << std::endl;
+		for (int i = 0; i < Free_books.size(); ++i) {
+			std::cout << Free_books[i] << std::endl;
+		}
+		std::string book = "";
+		std::vector<std::string> Free_books_copy;
+		std::cin.ignore();
+		std::cout << "Введи книгу,которую хотите вернуть (price,Name,Aythor,Age): ";
+		std::getline(std::cin, book);
+		for (int i = 0; i < Free_books.size(); ++i) {
+			if (Free_books[i] != book) {
+				Free_books_copy.push_back(Free_books[i]);
+			}
+			else {
+				std::ofstream out_free("free_books.txt", std::ios::app);
+				out_free << book + "\n";
+				out_free.close();
+			}
+		}
+		std::vector<std::string>().swap(Free_books);//пустой вектор
+		for (int i = 0; i < Free_books_copy.size(); ++i) {
+			Free_books.push_back(Free_books_copy[i]);
+		}
+	}
+	
+	//купить книгу
+	void buy_a_book() {
+		if (Money != "No_money") {
+			std::ifstream in_free("paid_books.txt"); // окрываем файл для чтения
+			std::string in_file_str = "";
+			std::vector<std::string> books_paid;
+			std::vector<std::string> books_paid_copy;
+			while (std::getline(in_free, in_file_str))
+			{
+				books_paid.push_back(in_file_str);
+			}
+			in_free.close();     // закрываем файл
 
+			std::cout << "Книги платной библиотеки:" << std::endl;
+			for (int i = 0; i < books_paid.size(); ++i) {
+				std::cout << books_paid[i] << std::endl;
+			}
+
+			std::string book = "";
+			std::cin.ignore();
+			std::cout << "Введи книгу (price,Name,Aythor,Age): ";
+			std::getline(std::cin, book);
+			std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
+			std::string str2 = "------------------------------------------------------";
+			system("cls"); // очищает экран консоли на Windows
+			std::cout << str1 << std::endl << str2 << std::endl;
+			for (int i = 0; i < books_paid.size(); ++i) {
+				if (books_paid[i] != book) {
+					books_paid_copy.push_back(books_paid[i]);
+				}
+				else if (books_paid[i] == book) {
+					book = "";
+					for (int j = 0; j < books_paid[i].size(); ++j) {
+						if (books_paid[i][j] != ',') {
+							book += books_paid[i][j];
+						}
+						else if (books_paid[i][j] == ',') {
+							break;
+						}
+					}
+					if (((int(books_paid[i][books_paid[i].size() - 2]) - 48) * 10 + int(books_paid[i][books_paid[i].size() - 1] - 48) <= std::stoi(Age))
+						and (std::stoi(Money) - std::stoi(book) > 0)) {
+						Money = std::to_string(std::stoi(Money) - std::stoi(book));
+						Paid_books.push_back(books_paid[i]);
+					}
+					else {
+						books_paid_copy.push_back(books_paid[i]);
+						std::cout << "Книга не подходит по возрасту или недостаточно средсвтв!"
+							<< "--------------------------------------------------------" << std::endl;
+					}
+				}
+			}
+
+			std::ofstream out_free("paid_books.txt", std::ios::trunc);
+			for (const auto& line : books_paid_copy) {
+				out_free << line << "\n";
+			}
+			out_free.close();
+			std::vector<std::string>().swap(books_paid);//пустой вектор
+			std::vector<std::string>().swap(books_paid_copy);//пустой вектор
+		}
 	}
 
 	//посоветовать книгу
@@ -172,7 +318,7 @@ public:
 		std::cout << "Введи возрастное ограничение книги: ";
 		std::getline(std::cin, book);
 		
-		if (book.size() < 1 or book.size() > 2) {
+		if (book.size() < 1 or book.size() > 3) {
 			flag = false;
 		}
 
@@ -194,25 +340,24 @@ public:
 		}
 	}
 
-	//купить книгу
-	void buy_a_book() {
-
-	}
-
 	//внести деньги
 	void set_money(std::string Money) {
 		if (Bank_card != "No_bank_card") {
 			bool flag = true;
-			if (Money.size() > 4 or Money.size() < 3) flag = false;
+			if (Money.size() > 4 or Money.size() < 2) flag = false;
 
 			for (int i = 0; i < Money.size(); ++i) {
 				if (int(Money[i]) < 48 or int(Money[i]) > 57) {
 					flag = false;
-					break;
 				}
 			}
 
-			if (flag == true) this->Money = Money;
+			if (flag == true and this->Money != "No_money") {
+				this->Money = std::to_string(std::stoi(Money) + std::stoi(this->Money));
+			}
+			else {
+				this->Money = Money;
+			}
 		}
 		else {
 			std::string str1 = "Карманный помощник 'Мир книг' библиотеки имени Чехова.";
@@ -224,8 +369,10 @@ public:
 	}
 
 	//сохранение действий в файл
-	void history() {
-
+	void history(std::string history) {
+		std::ofstream file("history.txt", std::ios_base::app); // открыли файл для записи и добавления в конец файла нового аккаунта
+		file << Email + ": " + history + "\n";
+		file.close();//закрытие файла
 	}
 
 	void print() override {
