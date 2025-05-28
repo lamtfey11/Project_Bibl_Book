@@ -174,7 +174,7 @@ static char check_akk(std::string email, std::string password) {
 	std::string akk = "";//сохраняется почта и пароль до пробела в строке
 	char status = '-';//статус (бибилиотекарь или читатель)
 
-	int size = 0;//длина стркои akk_str
+	int size = 0;//длина akk_str
 	int count = 0;//для того, чтобы считать именно пробелы на почту, пароль в строке(до пробела)
 
 	std::ifstream file("Account_email.txt"); // открыли файл для чтения, создали объект
